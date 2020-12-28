@@ -1,0 +1,59 @@
+Sigmoid neurons simulating perceptrons, part I
+Suppose we take all the weights and biases in a network of perceptrons, and multiply them by a positive constant, c>0. Show that the behaviour of the network doesn't change.
+
+For any perceptron, the output is defined as:
+dot(x,w) + b > 0
+
+This expands to:
+x1 * w1 + x2 * w2 + ... + xn * wn + b > 0
+
+If we were to multiply all weights and biases with a constant c we would get:
+c * x1 * w1 + c * x2 * w2 + ... + c * xn * wn + c * b > 0
+
+We can factor out the common factor c for:
+c * (x1 * w1 + x2 * w2 + ... + xn * wn) + c * b > 0
+
+So we are just multiplying the value of the neuron with a constant value, and if this constant value is > 0 then this does not change the sign of the value.
+Since the sign is evaluated for the output, the constant factor has no effect. A negative would change the output of the network. 
+In other words, imagine taking a linear function and multiplying it by a c > 0: The slope of the function does not change. Negate c and the slope of the function becomes negative.
+
+Since the above is true for every perceptron in our network, the behaviour of the network overall does not change.
+
+================================================================================================================================================================================
+
+Sigmoid neurons simulating perceptrons, part II 
+Suppose we have the same setup as the last problem - a network of perceptrons. 
+Suppose also that the overall input to the network of perceptrons has been chosen. We won't need the actual input value, we just need the input to have been fixed. 
+Suppose the weights and biases are such that w⋅x+b≠0 for the input x to any particular perceptron in the network. Now replace all the perceptrons in the network by sigmoid neurons, 
+and multiply the weights and biases by a positive constant c>0. Show that in the limit as c→∞ the behaviour of this network of sigmoid neurons is exactly the same as the network of 
+perceptrons. How can this fail when w⋅x+b=0 for one of the perceptrons?
+
+As shown in part 1, multiplying by a constant c does not change the output of any perceptron in the network, therefore not changing the output of the whole network.
+
+Note that e = ~2.71828, so e > 1
+
+So lets assume again a network where all weights and biases are multiplied by a constant c > 0 (c approaches infinity this time). We will replace all perceptrons in the network with
+sigmoid neurons. The value evaluated by a neuron is still calculated by:
+z = c * dot(x,w) + c*b
+
+But the activation function changes to:
+f(z) = 1 / 1 + e^-z
+
+Lets inspect the two cases for our evluation of the neuron output, z > 0 and z < 0
+
+For z > 0, with c -> ∞, z -> ∞:
+1 / 1 + e^-z  = 1 / 1 + 0 = 1
+Since e^-z approaches 0 due to the increasing negative exponent
+
+For z < 0, with c -> ∞, z -> ∞:
+1 / 1 + e^-z = 1 / 1 + ∞ = 0
+Since e^-z approaches infinity due to the double negated exponent, letting the value of the fraction approach 0 (ever increasing denominator)
+
+Therefore in the limit c→∞ (c approaching infinity), every sigmoid neuron behaves like a perceptron, outputting 0 or 1. If every neuron in the network behaves like a perceptron,
+the network as a whole behaves like an equivalent network of perceptrons.
+
+Now the final case where z=0, why does this fail the above behaviour of sigmoids acting like perceptrons?
+If z=0, so for atleast one of the neurons dot(w,x) + b = 0 -> c*dot(w.x) + c*b = 0, the output of a sigmoid is as follows:
+1 / 1 + e^-z -> 1 / 1 + e^0 = 1/2 = 0.5 (since x^0 = 1 for any x) 
+c * z is always 0 for any c if z = 0, so the output of the neuron is constant, since c simply scales the result of dot(w,x)+b. If for any neuron the output is a constant 0.5 as c approaches
+infinity, this breaks the behavior of it acting like a perceptron, and as such the output of our sigmoid network will not be the same as the output of an equivalent perceptron network.
