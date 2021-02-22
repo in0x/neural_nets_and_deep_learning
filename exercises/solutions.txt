@@ -57,3 +57,23 @@ If z=0, so for atleast one of the neurons dot(w,x) + b = 0 -> c*dot(w.x) + c*b =
 1 / 1 + e^-z -> 1 / 1 + e^0 = 1/2 = 0.5 (since x^0 = 1 for any x) 
 c * z is always 0 for any c if z = 0, so the output of the neuron is constant, since c simply scales the result of dot(w,x)+b. If for any neuron the output is a constant 0.5 as c approaches
 infinity, this breaks the behavior of it acting like a perceptron, and as such the output of our sigmoid network will not be the same as the output of an equivalent perceptron network.
+
+================================================================================================================================================================================
+There is a way of determining the bitwise representation of a digit by adding an extra layer to the three-layer network above. 
+The extra layer converts the output from the previous layer into a binary representation, as illustrated in the figure below. Find a 
+set of weights and biases for the new output layer. Assume that the first 3 layers of neurons are such that the correct output in the 
+third layer (i.e., the old output layer) has activation at least 0.99, and incorrect outputs have activation less than 0.01.
+
+dot(w,x) + b > 0  for neuron to activate
+
+      b1   b2   b3   b4 
+0 |   0    0    0    0    
+1 |   1    0    0    0    
+2 |   0    1    0    0  
+3 |   1    1    0    0  
+4 |   0    0    1    0  
+5 |   1    0    1    0  
+6 |   0    1    1    0  
+7 |   1    1    1    0  
+8 |   0    0    0    1  
+9 |   1    0    0    1  
